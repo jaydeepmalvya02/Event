@@ -6,7 +6,8 @@ const dotenv=require('dotenv')
 dotenv.config()
 const app = express();
 
-app.use(express.json()); // ✅ Required to parse JSON body
+app.use(express.json()); 
+app.use(cors());
 app.use("/api/register", userRoutes);
 
 app.get("/", (req, res) => {
