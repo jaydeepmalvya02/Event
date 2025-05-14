@@ -1,0 +1,30 @@
+const express = require("express");
+const mongoose = require("mongoose");
+const userRoutes = require("./routes/userRoutes");
+const dotenv=require('dotenv')
+
+dotenv.config()
+const app = express();
+
+app.use(express.json()); // ✅ Required to parse JSON body
+app.use("/api/register", userRoutes);
+
+app.get("/", (req, res) => {
+  res.json({ message: "This is API" });
+});
+
+// Connect to MongoDB before starting the server
+mongoose
+  .connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("MongoDB connected");
+    app.listen(8000, () => {
+      console.log("Server is running on http://localhost:8000");
+    });
+  })
+  .catch((err) => {
+    console.error("Database connection error:", err);
+  });
