@@ -50,5 +50,29 @@ const allUsers = async (req, res) => {
   }
 };
 
-
-module.exports={register,allUsers}
+const login=async(req,res)=>{
+  const {email,mobile}=req.body;
+  console.log(req.body);
+  
+  const user=await User.findOne({email})
+  try {
+    if(!user) return res.status(404).json({message:"Please register first"})
+      if (user) {
+        if (user.mobile === req.body.mobile) {
+          return res
+            .status(201)
+            .json({ message: "Successfully Logged In", user });
+        } else {
+          return res.status(401).json({ message: "Mobile number mismatch" });
+        }
+      } else {
+        return res.status(404).json({ message: "User not found" });
+      }
+ 
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({message:"Server Error"})
+    
+  }
+}
+module.exports={register,allUsers,login}

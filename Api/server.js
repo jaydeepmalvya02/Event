@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const userRoutes = require("./routes/userRoutes");
+const queryRoutes=require("./routes/queryRoutes")
 const dotenv=require('dotenv')
 const cors=require('cors')
 dotenv.config()
@@ -9,6 +10,7 @@ const app = express();
 app.use(express.json()); 
 app.use(cors());
 app.use("/api", userRoutes);
+app.use("/api/query",queryRoutes)
 
 app.get("/", (req, res) => {
   res.json({ message: "This is API" });
