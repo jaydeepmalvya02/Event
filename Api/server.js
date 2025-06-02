@@ -5,6 +5,7 @@ const queryRoutes = require("./routes/queryRoutes");
 const ytRoutes = require("./routes/ytRoutes");
 const contactRoutes=require("./routes/contactRoutes")
 const subscriberRoutes=require("./routes/subscriberRoutes")
+const whatsappRoutes = require("./routes/whatsappRoutes");
 const dotenv = require("dotenv");
 const cors = require("cors");
 dotenv.config();
@@ -17,7 +18,7 @@ app.use("/api/query", queryRoutes);
 app.use("/api", ytRoutes);
 app.use('/api',contactRoutes)
 app.use('/api',subscriberRoutes)
-
+app.use("/api", whatsappRoutes);
 app.get("/", (req, res) => {
   res.json({ message: "This is API" });
 });
