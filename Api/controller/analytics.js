@@ -25,38 +25,42 @@ const getStats = async (req, res) => {
   try {
     const now = new Date();
 
-    // Set time boundaries
     const startOfToday = new Date(
       now.getFullYear(),
       now.getMonth(),
       now.getDate()
     );
-    const startOfWeek = new Date(now); // Go to last Sunday
+    const startOfWeek = new Date(now);
     startOfWeek.setDate(now.getDate() - now.getDay());
     startOfWeek.setHours(0, 0, 0, 0);
     const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
 
-    // Total Visitors
-    const totalVisitors = await Analytics.countDocuments();
+    // Helper to count unique IPs
+    const countUniqueIPs = async (match = {}) => {
+      const result = await Analytics.aggregate([
+        { $match: match },
+        { $group: { _id: "$ipAddress" } },
+        { $count: "uniqueCount" },
+      ]);
+      return result[0]?.uniqueCount || 0;
+    };
 
-    // Count by time periods
-    const [todayCount, weekCount, monthCount] = await Promise.all([
-      Analytics.countDocuments({ createdAt: { $gte: startOfToday } }),
-      Analytics.countDocuments({ createdAt: { $gte: startOfWeek } }),
-      Analytics.countDocuments({ createdAt: { $gte: startOfMonth } }),
-    ]);
-
-    // Device type breakdown
+    // Helper to get unique device count based on IP
     const deviceStats = await Analytics.aggregate([
       {
         $group: {
-          _id: "$deviceInfo.deviceType",
+          _id: { ip: "$ipAddress", deviceType: "$deviceInfo.deviceType" },
+        },
+      },
+      {
+        $group: {
+          _id: "$_id.deviceType",
           count: { $sum: 1 },
         },
       },
     ]);
 
-    // Find device type with max usage
+    // Determine most used device
     let mostUsedDevice = "Unknown";
     let maxCount = 0;
     deviceStats.forEach((device) => {
@@ -65,6 +69,14 @@ const getStats = async (req, res) => {
         mostUsedDevice = device._id || "Unknown";
       }
     });
+
+    const [totalVisitors, todayCount, weekCount, monthCount] =
+      await Promise.all([
+        countUniqueIPs(),
+        countUniqueIPs({ createdAt: { $gte: startOfToday } }),
+        countUniqueIPs({ createdAt: { $gte: startOfWeek } }),
+        countUniqueIPs({ createdAt: { $gte: startOfMonth } }),
+      ]);
 
     res.json({
       totalVisitors,
