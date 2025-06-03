@@ -9,6 +9,8 @@ const analyticsSchema = new mongoose.Schema(
       vendor: String,
       model: String,
     },
+    ipAddress: String,
+    userAgent: String,
     page: String,
     timestamp: Date,
   },
