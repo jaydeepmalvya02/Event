@@ -9,10 +9,11 @@ const saveAnalytics = async (req, res) => {
       deviceInfo,
       timestamp,
       page,
+      ipAddress: req.headers["x-forwarded-for"] || req.socket.remoteAddress,
+      userAgent: req.headers["user-agent"],
     });
 
     await entry.save();
-
     res.status(201).json({ message: "Analytics saved" });
   } catch (error) {
     console.error("Analytics error:", error.message);
