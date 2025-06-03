@@ -13,6 +13,7 @@ const register = async (req, res) => {
       city,
       mobile,
       email,
+      deviceInfo,
     } = req.body;
 
     // Validate required fields
@@ -24,9 +25,7 @@ const register = async (req, res) => {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res
-        .status(401
-
-        )
+        .status(401)
         .json({ message: "Email already exists! Please login." });
     }
 
@@ -40,6 +39,7 @@ const register = async (req, res) => {
       city,
       mobile,
       email,
+      deviceInfo,
     });
 
     res.status(201).json({

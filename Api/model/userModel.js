@@ -32,7 +32,13 @@ const userSchema = new mongoose.Schema(
     },
     email: {
       type: String,
-    
+    },
+    deviceInfo: {
+      os: { type: String },
+      browser: { type: String },
+      deviceType: { type: String },
+      vendor: { type: String },
+      model: { type: String },
     },
   },
   { timestamps: true }
