@@ -1,37 +1,55 @@
-const mongoose=require('mongoose')
+const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: true,
+      required: [true, "Name is required"],
+      minlength: 2,
+      maxlength: 50,
+      trim: true,
     },
     companyName: {
       type: String,
-      required: true,
+      required: [true, "Company name is required"],
+      trim: true,
     },
     division: {
       type: String,
-      required: true,
+      required: [true, "Division is required"],
+      trim: true,
     },
     designation: {
       type: String,
-      required: true,
+      required: [true, "Designation is required"],
+      trim: true,
+    },
+    department: {
+      type: String,
+      required: [true, "Department is required"],
+      trim: true,
     },
     state: {
       type: String,
-      required: true,
+      required: [true, "State is required"],
+      trim: true,
     },
     city: {
       type: String,
-      required: true,
+      required: [true, "City is required"],
+      trim: true,
     },
     mobile: {
       type: String,
-      required: true,
+      required: [true, "Mobile number is required"],
+      match: [/^\d{10}$/, "Mobile number must be 10 digits"],
     },
     email: {
       type: String,
+      required: [true, "Email is required"],
+      match: [/.+\@.+\..+/, "Please fill a valid email address"],
+      lowercase: true,
+      trim: true,
     },
     deviceInfo: {
       os: { type: String },
@@ -43,4 +61,5 @@ const userSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-module.exports=mongoose.model('Users',userSchema)
+
+module.exports = mongoose.model("Users", userSchema);
