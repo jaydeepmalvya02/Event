@@ -7,6 +7,7 @@ const contactRoutes = require("./routes/contactRoutes");
 const subscriberRoutes = require("./routes/subscriberRoutes");
 const whatsappRoutes = require("./routes/whatsappRoutes");
 const analyticsRoute = require("./routes/analyticsRoutes");
+const adminRoutes=require('./routes/adminRoutes')
 const dotenv = require("dotenv");
 const cors = require("cors");
 dotenv.config();
@@ -21,6 +22,8 @@ app.use("/api", contactRoutes);
 app.use("/api", subscriberRoutes);
 app.use("/api", whatsappRoutes);
 app.use("/api", analyticsRoute);
+// admin
+app.use("/api/admin",adminRoutes)
 app.get("/", (req, res) => {
   res.json({ message: "This is API" });
 });
