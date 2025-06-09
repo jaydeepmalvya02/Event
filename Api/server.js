@@ -8,6 +8,7 @@ const subscriberRoutes = require("./routes/subscriberRoutes");
 const whatsappRoutes = require("./routes/whatsappRoutes");
 const analyticsRoute = require("./routes/analyticsRoutes");
 const adminRoutes=require('./routes/adminRoutes')
+const eventRoutes=require('./routes/eventRoutes')
 const dotenv = require("dotenv");
 const cors = require("cors");
 dotenv.config();
@@ -27,7 +28,8 @@ app.use("/api/admin",adminRoutes)
 app.get("/", (req, res) => {
   res.json({ message: "This is API" });
 });
-
+// Event
+app.use('/api/admin/',eventRoutes)
 // Connect to MongoDB before starting the server
 mongoose
   .connect(process.env.MONGO_URI, {
