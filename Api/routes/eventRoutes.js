@@ -8,10 +8,10 @@ const {
   deleteEvent,
 } = require("../controller/event");
 
-router.get("/events", getAllEvents);
-router.get("/events/:id", getEventById);
-router.post("/events", createEvent);
-router.put("/events/:id", updateEvent);
-router.delete("/events/:id", deleteEvent);
+router.get("/event", getAllEvents);
+router.get("/event/:id", getEventById);
+router.post("/event", createEvent);
+router.put("/event/:id", updateEvent);
+router.delete("/event/:id", deleteEvent);
 
 module.exports = router;
