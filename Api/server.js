@@ -11,7 +11,7 @@ const adminRoutes=require('./routes/adminRoutes')
 const eventRoutes=require('./routes/eventRoutes')
 const uploadRoutes=require('./routes/uploadRoutes')
 const dotenv = require("dotenv");
-const path=require('path')
+const sendMail=require('./middleware/nodemailer')
 const cors = require("cors");
 dotenv.config();
 const app = express();
@@ -27,6 +27,8 @@ app.use("/api", whatsappRoutes);
 app.use("/api", analyticsRoute);
 // admin
 app.use("/api/admin",adminRoutes)
+// nodemailer
+app.post("/api/send-email", sendMail);
 app.get("/", (req, res) => {
   res.json({ message: "This is API" });
 });
