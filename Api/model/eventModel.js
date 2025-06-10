@@ -18,7 +18,7 @@ const eventSchema = new mongoose.Schema(
       type: String,
       required: true,
       trim: true,
-      match: /^https?:\/\/.+/,
+      
     },
     image: {
       type: String,
