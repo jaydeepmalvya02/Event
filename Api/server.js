@@ -9,11 +9,18 @@ const whatsappRoutes = require("./routes/whatsappRoutes");
 const analyticsRoute = require("./routes/analyticsRoutes");
 const adminRoutes=require('./routes/adminRoutes')
 const eventRoutes=require('./routes/eventRoutes')
+const uploadRoutes=require('./routes/uploadRoutes')
 const dotenv = require("dotenv");
+const path=require('path')
 const cors = require("cors");
 dotenv.config();
 const app = express();
-
+// file path config
+const fs = require("fs");
+const uploadsDir = path.join(__dirname, "uploads");
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir);
+}
 app.use(express.json());
 app.use(cors());
 app.use("/api", userRoutes);
@@ -29,7 +36,11 @@ app.get("/", (req, res) => {
   res.json({ message: "This is API" });
 });
 // Event
-app.use('/api/admin/',eventRoutes)
+app.use('/api/admin',eventRoutes)
+// image
+
+app.use(express.static("uploads")); // to serve uploaded files
+app.use("/api", uploadRoutes);
 // Connect to MongoDB before starting the server
 mongoose
   .connect(process.env.MONGO_URI, {
