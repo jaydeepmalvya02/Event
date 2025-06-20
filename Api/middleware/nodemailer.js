@@ -21,8 +21,8 @@ const sendMail = async (req, res) => {
 
 html: `
   <h3>You've got a new message from ExpertOnBoard</h3>
-  <p><strong>Subject:</strong> ${subject}</p>
-  <p><strong>Message:</strong><br>${formattedMessage}</p>
+
+  <p>${formattedMessage}</p>
 `,
 
     };
