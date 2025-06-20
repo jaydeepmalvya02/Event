@@ -1,9 +1,10 @@
 const nodemailer = require("nodemailer");
-const formattedMessage = message.replace(/\n/g, "<br/>");
+
 const sendMail = async (req, res) => {
   const { name, subject, message, emails } = req.body; // 'emails' is an array like ["a@gmail.com", "b@gmail.com"]
 
   try {
+    const formattedMessage = message.replace(/\n/g, "<br/>");
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
