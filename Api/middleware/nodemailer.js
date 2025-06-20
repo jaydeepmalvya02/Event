@@ -1,5 +1,5 @@
 const nodemailer = require("nodemailer");
-
+const formattedMessage = message.replace(/\n/g, "<br/>");
 const sendMail = async (req, res) => {
   const { name, subject, message, emails } = req.body; // 'emails' is an array like ["a@gmail.com", "b@gmail.com"]
 
@@ -16,11 +16,14 @@ const sendMail = async (req, res) => {
       from: process.env.EMAIL_USER,
       to: emails.join(","), // 👈 Join array to comma-separated string
       subject: `📩 New Message: ${subject}`,
-      html: `
-        <h3>You've got a new message from ExpertOnBoard</h3>
-        <p><strong>Subject:</strong> ${subject}</p>
-        <p><strong>Message:</strong><br>${message}</p>
-      `,
+  
+
+html: `
+  <h3>You've got a new message from ExpertOnBoard</h3>
+  <p><strong>Subject:</strong> ${subject}</p>
+  <p><strong>Message:</strong><br>${formattedMessage}</p>
+`,
+
     };
 
     await transporter.sendMail(mailOptions);
