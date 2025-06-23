@@ -18,7 +18,7 @@ const sendMail = async (req, res) => {
       to: "", // Optional: leave empty if only using bcc
       bcc: emails.join(","), // ✅ Convert array to comma-separated string
       subject: `📩 New Message: ${subject}`,
-<<<<<<< HEAD
+ 
   
 
 html: `
@@ -27,13 +27,13 @@ html: `
   <p>${formattedMessage}</p>
 `,
 
-=======
+
       html: `
         <h3>You've got a new message from ExpertOnBoard</h3>
         <p> ${subject}</p>
         <p><br>${message}</p>
       `,
->>>>>>> 24fd5ce (add bcc in nodemailer)
+
     };
     
 
