@@ -11,6 +11,7 @@ const adminRoutes = require("./routes/adminRoutes");
 const eventRoutes = require("./routes/eventRoutes");
 const uploadRoutes = require("./routes/uploadRoutes");
 const speakerRoutes = require("./routes/speakerRoutes");
+const speakerUserRoutes = require("./routes/speakerUserRoutes");
 const dotenv = require("dotenv");
 const sendMail = require("./middleware/nodemailer");
 const cors = require("cors");
@@ -39,6 +40,8 @@ app.use("/api/admin", eventRoutes);
 app.use("/api", uploadRoutes);
 // Speaker
 app.use("/api",speakerRoutes);
+// Speaker Users
+app.use("/api",speakerUserRoutes);
 // Connect to MongoDB before starting the server
 mongoose
   .connect(process.env.MONGO_URI, {
