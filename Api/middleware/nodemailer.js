@@ -15,8 +15,10 @@ const sendMail = async (req, res) => {
 
     const mailOptions = {
       from: process.env.EMAIL_USER,
-      to: emails.join(","), // 👈 Join array to comma-separated string
+      to: "", // Optional: leave empty if only using bcc
+      bcc: emails.join(","), // ✅ Convert array to comma-separated string
       subject: `📩 New Message: ${subject}`,
+<<<<<<< HEAD
   
 
 html: `
@@ -25,7 +27,15 @@ html: `
   <p>${formattedMessage}</p>
 `,
 
+=======
+      html: `
+        <h3>You've got a new message from ExpertOnBoard</h3>
+        <p> ${subject}</p>
+        <p><br>${message}</p>
+      `,
+>>>>>>> 24fd5ce (add bcc in nodemailer)
     };
+    
 
     await transporter.sendMail(mailOptions);
     res.status(200).json({ success: true, message: "Email sent successfully" });
