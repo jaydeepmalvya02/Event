@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const userRoutes = require("./routes/userRoutes");
 const queryRoutes = require("./routes/queryRoutes");
 const ytRoutes = require("./routes/ytRoutes");
+const jobRoutes = require("./routes/jobRoutes");
 const contactRoutes = require("./routes/contactRoutes");
 const subscriberRoutes = require("./routes/subscriberRoutes");
 const whatsappRoutes = require("./routes/whatsappRoutes");
@@ -42,6 +43,8 @@ app.use("/api", uploadRoutes);
 app.use("/api",speakerRoutes);
 // Speaker Users
 app.use("/api",speakerUserRoutes);
+// Jobs Route
+app.use("/api",jobRoutes);
 // Connect to MongoDB before starting the server
 mongoose
   .connect(process.env.MONGO_URI, {
