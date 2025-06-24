@@ -60,12 +60,19 @@ const userSchema = new mongoose.Schema(
     },
     role: {
       type: "String",
-      enum: ["user", "admin"],
+      enum: ["user", "admin","speaker"],
       default: "user",
     },
     password:{
       type:String,
     },
+    linkedin:{
+      type:String,
+
+    },
+    experience:{
+      type:Number,
+    }
   },
   { timestamps: true }
 );

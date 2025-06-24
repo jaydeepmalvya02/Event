@@ -15,6 +15,10 @@ const register = async (req, res) => {
       mobile,
       email,
       deviceInfo,
+      role,
+      linkedin,
+      experience,
+      
     } = req.body;
 
     // Validate required fields
@@ -42,6 +46,9 @@ const register = async (req, res) => {
       mobile,
       email,
       deviceInfo,
+      role,
+      linkedin,
+      experience,
     });
 
     res.status(201).json({
