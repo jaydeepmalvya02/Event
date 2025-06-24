@@ -5,16 +5,16 @@ const candidateSchema = new mongoose.Schema(
     jobId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Jobs",
-      required: true,
+      
     },
     name: {
       type: String,
-      required: [true, "Candidate name is required"],
+      
       trim: true,
     },
     email: {
       type: String,
-      required: [true, "Email is required"],
+     
       lowercase: true,
       match: [/.+\@.+\..+/, "Please enter a valid email"],
     },
