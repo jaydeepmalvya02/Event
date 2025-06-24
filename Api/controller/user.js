@@ -18,7 +18,6 @@ const register = async (req, res) => {
       role,
       linkedin,
       experience,
-      
     } = req.body;
 
     // Validate required fields
@@ -51,7 +50,8 @@ const register = async (req, res) => {
       experience,
     });
 
-    res.status(201).json({
+    res.json({
+      success: true,
       message: "Registration successful",
       data: newUser,
     });
@@ -84,9 +84,11 @@ const login = async (req, res) => {
       return res.status(404).json({ message: "Please register first" });
     if (user) {
       if (user.mobile === req.body.mobile) {
-        return res
-          
-          .json({success:true, message: "Successfully Logged In", user });
+        return res.json({
+          success: true,
+          message: "Successfully Logged In",
+          user,
+        });
       } else {
         return res.status(401).json({ message: "Mobile number mismatch" });
       }
