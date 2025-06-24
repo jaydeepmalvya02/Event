@@ -85,8 +85,8 @@ const login = async (req, res) => {
     if (user) {
       if (user.mobile === req.body.mobile) {
         return res
-          .status(201)
-          .json({ message: "Successfully Logged In", user });
+          
+          .json({success:true, message: "Successfully Logged In", user });
       } else {
         return res.status(401).json({ message: "Mobile number mismatch" });
       }
