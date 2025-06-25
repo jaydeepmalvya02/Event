@@ -49,30 +49,31 @@ router.post("/upload", upload.single("image"), async (req, res) => {
 router.post("/uploadPdf", upload.single("pdf"), async (req, res) => {
   try {
     if (!req.file) {
-      return res.status(400).json({ message: "Please provide pdf file" });
+      return res.status(400).json({ message: "Please provide a PDF file" });
     }
 
-    // Function to handle the stream upload image to cloudinary
     const streamUpload = (fileBuffer) => {
       return new Promise((resolve, reject) => {
-        const stream = cloudinary.uploader.upload_stream((error, result) => {
-          if (result) {
-            resolve(result);
-          } else {
-            reject(error);
+        const stream = cloudinary.uploader.upload_stream(
+          {
+            resource_type: "raw", // required for PDFs
+             access_mode: "public", // optional, defaults to public
+          },
+          (error, result) => {
+            if (result) resolve(result);
+            else reject(error);
           }
-        });
-        // User streamifier to stream the file buffer
+        );
         streamifier.createReadStream(fileBuffer).pipe(stream);
       });
     };
-    // call the streamUpload function with the fileBuffer
+
     const result = await streamUpload(req.file.buffer);
-    // response with the uploaded image URL
     res.json({ url: result.secure_url });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.status(500).send("Server Error");
   }
 });
+
 module.exports = router;
