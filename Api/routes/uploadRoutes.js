@@ -56,7 +56,7 @@ router.post("/uploadPdf", upload.single("pdf"), async (req, res) => {
       return new Promise((resolve, reject) => {
         const stream = cloudinary.uploader.upload_stream(
           {
-            resource_type: "pdf", // required for PDFs
+            resource_type: "raw", // required for PDFs
              access_mode: "public", // optional, defaults to public
           },
           (error, result) => {
