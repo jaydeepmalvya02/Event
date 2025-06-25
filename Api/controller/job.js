@@ -60,4 +60,27 @@ const deleteJob=async(req,res)=>{
   }
 }
 
-module.exports = { createJob, getAllJobs, applyJobs,deleteJob };
+// get all candidates
+
+const getAllCandidates=async(req,res)=>{
+  try {
+    const candidates=await Candidate.find({})
+    res.json({success:true,candidates})
+  } catch (error) {
+    console.error(error.message);
+    res.json({ success: false, message: error.message });
+  }
+}
+
+// Delete candidate by id
+const deleteCandidate=async(req,res)=>{
+  try {
+    const candidateId=req.params.id
+    await Candidate.findByIdAndDelete(candidateId)
+    res.json({success:true,message:"Successfully Deleted"})
+  } catch (error) {
+    console.error(error.message);
+    res.json({ success: false, message: error.message });
+  }
+}
+module.exports = { createJob, getAllJobs, applyJobs,deleteJob,getAllCandidates,deleteCandidate };
