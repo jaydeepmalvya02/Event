@@ -29,6 +29,9 @@ const jobSchema = new mongoose.Schema(
       maxLength: 500,
       required: true,
     },
+    email:{
+      type:String,
+    }
   },
   { timestamps: true }
 );

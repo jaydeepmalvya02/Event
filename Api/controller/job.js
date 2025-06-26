@@ -2,9 +2,9 @@ const Job = require("../model/jobModel");
 const Candidate = require("../model/candidateModel");
 const createJob = async (req, res) => {
   try {
-    const { title, type, location, company, experience, description } =
+    const { title, type, location, company, experience, description,email } =
       req.body;
-    if (!title || !description || !type || !location) {
+    if (!title || !description || !type || !location || !email) {
       res.json({ success: false, message: "Fill all fields!" });
     }
     const newJob = Job(req.body);
